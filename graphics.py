@@ -84,3 +84,20 @@ class Cell:
         if self.has_bottom_wall:
             line = Line(Point(x1, y2), Point(x2, y2))
             self.__win.draw_line(line, "black")
+    
+    def draw_move(self, to_cell, undo=False):
+        # Calculate center of this cell
+        x_center = (self.__x1 + self.__x2) / 2
+        y_center = (self.__y1 + self.__y2) / 2
+        
+        # Calculate center of destination cell
+        to_x_center = (to_cell.__x1 + to_cell.__x2) / 2
+        to_y_center = (to_cell.__y1 + to_cell.__y2) / 2
+        
+        # Choose color based on undo flag
+        fill_color = "gray" if undo else "red"
+        
+        # Draw line from center to center
+        line = Line(Point(x_center, y_center), Point(to_x_center, to_y_center))
+        self.__win.draw_line(line, fill_color)
+
