@@ -47,7 +47,7 @@ class Line:
 
 
 class Cell:
-    def __init__(self, win):
+    def __init__(self, win=None):
         self.has_left_wall = True
         self.has_right_wall = True
         self.has_top_wall = True
@@ -59,11 +59,15 @@ class Cell:
         self.__win = win
 
     def draw(self, x1, y1, x2, y2):
-        # Update coordinates
+        # Update coordinates (always do this - needed for logic)
         self.__x1 = x1
         self.__y1 = y1
         self.__x2 = x2
         self.__y2 = y2
+        
+        # Only draw if window exists
+        if self.__win is None:
+            return
         
         # Draw left wall (vertical line on left edge)
         if self.has_left_wall:
@@ -84,20 +88,21 @@ class Cell:
         if self.has_bottom_wall:
             line = Line(Point(x1, y2), Point(x2, y2))
             self.__win.draw_line(line, "black")
-    
+
     def draw_move(self, to_cell, undo=False):
-        # Calculate center of this cell
+        # Calculate centers (always do this)
         x_center = (self.__x1 + self.__x2) / 2
         y_center = (self.__y1 + self.__y2) / 2
         
-        # Calculate center of destination cell
         to_x_center = (to_cell.__x1 + to_cell.__x2) / 2
         to_y_center = (to_cell.__y1 + to_cell.__y2) / 2
         
-        # Choose color based on undo flag
-        fill_color = "gray" if undo else "red"
+        # Only draw if window exists
+        if self.__win is None:
+            return
         
-        # Draw line from center to center
+        fill_color = "gray" if undo else "red"
         line = Line(Point(x_center, y_center), Point(to_x_center, to_y_center))
         self.__win.draw_line(line, fill_color)
+
 
