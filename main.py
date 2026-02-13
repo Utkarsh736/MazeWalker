@@ -1,25 +1,42 @@
-from graphics import Window, Point, Line
+from graphics import Window, Cell
 
 
 def main():
     win = Window(800, 600)
     
-    # Draw an X across the window
-    line1 = Line(Point(0, 0), Point(800, 600))
-    win.draw_line(line1, "black")
+    # Cell with all walls (default)
+    cell1 = Cell(win)
+    cell1.draw(50, 50, 150, 150)
     
-    line2 = Line(Point(800, 0), Point(0, 600))
-    win.draw_line(line2, "red")
+    # Cell with no left wall
+    cell2 = Cell(win)
+    cell2.has_left_wall = False
+    cell2.draw(200, 50, 300, 150)
     
-    # Draw a triangle
-    line3 = Line(Point(400, 100), Point(200, 400))
-    win.draw_line(line3, "blue")
+    # Cell with no top wall
+    cell3 = Cell(win)
+    cell3.has_top_wall = False
+    cell3.draw(350, 50, 450, 150)
     
-    line4 = Line(Point(200, 400), Point(600, 400))
-    win.draw_line(line4, "green")
+    # Cell with only left and top walls (corridor corner)
+    cell4 = Cell(win)
+    cell4.has_right_wall = False
+    cell4.has_bottom_wall = False
+    cell4.draw(50, 200, 150, 300)
     
-    line5 = Line(Point(600, 400), Point(400, 100))
-    win.draw_line(line5, "purple")
+    # Cell with no walls (completely open)
+    cell5 = Cell(win)
+    cell5.has_left_wall = False
+    cell5.has_right_wall = False
+    cell5.has_top_wall = False
+    cell5.has_bottom_wall = False
+    cell5.draw(200, 200, 300, 300)
+    
+    # Large cell with only right and bottom walls
+    cell6 = Cell(win)
+    cell6.has_left_wall = False
+    cell6.has_top_wall = False
+    cell6.draw(350, 200, 500, 350)
     
     win.wait_for_close()
 
